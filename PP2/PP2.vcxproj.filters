@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów\graphicImages">
+      <UniqueIdentifier>{b9b7a5d0-fefb-4c24-84a3-c52948484a5d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="logic.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="gui.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.c">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="logic.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="gui.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="ClearSans-Medium.ttf">
+      <Filter>Pliki zasobów</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="leadboard.txt">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
+    <Text Include="graphicPath.txt">
+      <Filter>Pliki zasobów</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="gamegraphic\0.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\2.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\4.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\8.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\16.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\32.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\64.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\128.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\256.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\512.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\1024.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\2048.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\4096.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\8192.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\16384.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\32768.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\65536.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+    <Image Include="gamegraphic\131072.png">
+      <Filter>Pliki zasobów\graphicImages</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

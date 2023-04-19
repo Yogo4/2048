@@ -10,7 +10,7 @@
 #include "logic.h"
 #include "gui.h"
 #include "menu.h"
-
+#include <windows.h>
 
 int main(void) {
 
@@ -46,7 +46,7 @@ int main(void) {
 	al_init_font_addon();
 	al_init_ttf_addon();
 	srand((unsigned)time(&t));
-	
+
 	ALLEGRO_COLOR bgcolor = al_map_rgb(60, 58, 51);
 	ALLEGRO_DISPLAY *display = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
@@ -58,10 +58,11 @@ int main(void) {
 	ALLEGRO_BITMAP* gameover = al_load_bitmap("gameover.png");
 	ALLEGRO_BITMAP* gamewon = al_load_bitmap("gamewon.png");
 
+
 	display = al_create_display( width, height);
 	timer = al_create_timer(1.0 / FPSlimit);
 	event_queue = al_create_event_queue();
-	
+
 	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
 	
@@ -119,7 +120,7 @@ int main(void) {
 		}
 
 		if (state == PLAYING) {
-			
+			//game.board[0][0]->value = 2048;
 			getKey(event, &keyUpCheck, &keyPressed);
 			printf("\n%d\n", keyPressed);
 			action(&game,&state, keyPressed);

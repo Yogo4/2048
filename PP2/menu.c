@@ -108,23 +108,20 @@ void save_score(struct GAME *game) {
 		exit(1);
 	}
 
-	// Read the existing scores from the file.
+
 	for (i = 0; i < 10; i++) {
 		fscanf_s(leadboard, "%d", &scores[i]);
 	}
 
-	// Check if the new score is higher than any of the existing scores.
+
 	for (i = 0; i < 10; i++) {
 		if (game->score > scores[i]) {
-			// Shift the lower scores down to make room for the new score.
 			for (j = 10 - 1; j > i; j--) {
 				scores[j] = scores[j - 1];
 			}
 
-			// Insert the new score at the correct position.
 			scores[i] = game->score;
 
-			// Write the updated scores to the file.
 			rewind(leadboard);
 			for (j = 0; j < 10; j++) {
 				fprintf_s(leadboard, "%d\n", scores[j]);
@@ -143,14 +140,11 @@ void read_scores(int scores[10]) {
 
 	int i;
 	if (leadboard == NULL) {
-		printf("Error: Unable to open file %s.\n", filename);
 		exit(1);
 	}
-	// Read the top 10 scores from the file.
 	for (i = 0; i < 10; i++) {
 		fscanf_s(leadboard, "%d", &scores[i]);
 	}
 
-	// Close the file.
 	fclose(leadboard);
 }

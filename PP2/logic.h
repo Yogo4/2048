@@ -9,11 +9,12 @@
 #ifndef LOGIC_H_INCLUDED
 #define LOGIC_H_INCLUDED
 
-enum keys {A,S,D,W,NONE};
+enum keys {A,S,D,W,NONE,R};
 
 struct GAMESQUARE {
 	int value;
 	int pastValue;
+	int undoMoveValue;
 	int x1Pos;
 	int y1Pos;
 	int x2Pos;
@@ -23,6 +24,7 @@ struct GAMESQUARE {
 struct GAME {
 	struct GAMESQUARE* board[4][4];
 	int score;
+	int undoSocore;
 	bool gameWon;
 };
 
@@ -40,7 +42,6 @@ void copyMatrix(int copyTab[4][4], int mainTab[4][4]);
 bool gameOver(struct GAME* game);
 bool lookfor2048(struct GAME* game);
 bool compareMatrix(struct GAME* game);
-void findEmptyField(int* emptyFieldPointers[15], int tabel[4][4]);
 void spawn(struct GAME* game);
 void moveBoard(struct GAME* game,int direction);
 void action(struct GAME* game, int* state, int key);

@@ -10,7 +10,6 @@
 #include "logic.h"
 #include "gui.h"
 #include "menu.h"
-#include <windows.h>
 
 int main(void) {
 
@@ -77,6 +76,7 @@ int main(void) {
 		
 		if (state == IN_MENU) {
 			if (menuState == REST) {
+				//render
 				if (event.type == ALLEGRO_EVENT_TIMER) {
 					printMenu(menuFont);
 					printSelected(&menu, menuSeleced);
@@ -102,6 +102,7 @@ int main(void) {
 			}
 			else if (menuState == LEADBOARD) {
 				read_scores(scores);
+				//render
 				if (event.type == ALLEGRO_EVENT_TIMER) {
 					al_clear_to_color(bgcolor);
 					printScores(menuFont, &scores);
@@ -119,19 +120,21 @@ int main(void) {
 			}
 		}
 
-		if (state == PLAYING) {
-			//game.board[0][0]->value = 2048;
+		else if (state == PLAYING) {
 			getKey(event, &keyUpCheck, &keyPressed);
 			printf("\n%d\n", keyPressed);
 			action(&game,&state, keyPressed);
 			printarr(&game);
+			//render
 			if (event.type == ALLEGRO_EVENT_TIMER) {
 				printboard(&game.board);
 				printChars(font, &game);
 				printScore(menuFont, &game);
 				areYouWinningSon(&game, &promptClock, gamewon);
 				al_draw_text(helpfont,al_map_rgb(255,255,255),835,0,ALLEGRO_ALIGN_RIGHT,"move(a,w,s,d)");
-				al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 18, ALLEGRO_ALIGN_RIGHT, "menu(esc)");
+				al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 18, ALLEGRO_ALIGN_RIGHT, "undo move(r)");
+				al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 36, ALLEGRO_ALIGN_RIGHT, "menu(esc)");
+
 				al_flip_display();
 			}
 			keyPressed = NONE;
@@ -144,7 +147,7 @@ int main(void) {
 			}
 		}
 
-		if (state == GAMEOVER) {
+		else if (state == GAMEOVER) {
 			if (event.type == ALLEGRO_EVENT_KEY_DOWN && event.keyboard.keycode == ALLEGRO_KEY_ESCAPE) {
 				game.gameWon = false;
 				game.score = 0;
@@ -154,6 +157,7 @@ int main(void) {
 				fillZeros(&game);
 				randFirst(&game);
 			}
+			//render
 			if (event.type == ALLEGRO_EVENT_TIMER) {
 				printboard(&game.board);
 				printChars(font, &game);
@@ -163,5 +167,13 @@ int main(void) {
 			}
 		}
 	}
+	al_destroy_bitmap(gameover);
+	al_destroy_bitmap(gamewon);
+	al_destroy_font(helpfont);
+	al_destroy_font(font);
+	al_destroy_font(menuFont);
+	al_destroy_font(menuSeleced);
+	al_destroy_timer(timer);
+	al_destroy_event_queue(event_queue);
 	al_destroy_display(display);
 }

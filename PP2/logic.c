@@ -50,8 +50,27 @@ void savePastValues(struct GAME *game) {
             game->board[i][j]->pastValue = game->board[i][j]->value;
         }
     }
-
 }
+
+void saveValueToUndo(struct GAME* game) {
+    game->undoSocore = game->score;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            game->board[i][j]->undoMoveValue = game->board[i][j]->value;
+        }
+    }
+}
+
+
+void undoMove(struct GAME* game) {
+    game->score = game->undoSocore;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            game->board[i][j]->value = game->board[i][j]->undoMoveValue;
+        }
+    }
+}
+
 //nie uzytkowane
 void swap(int* a, int* b) {
     int temp = *a;
@@ -88,7 +107,7 @@ void randFirst(struct GAME* game) {
     game->board[i][j]->value = 2;
 }
 
-//funckja 
+
 void add(struct GAME* game) {
 
     for (int i = 0; i < 4; i++) {
@@ -189,31 +208,21 @@ bool compareMatrix(struct GAME* game) {
 
 }
 
-//do wywalenie
-void findEmptyField(int* emptyFieldPointers[15], int tabel[4][4]) {
-    int counter = 0;
-    for (int i = 0; i < 4; i++) {
-        for (int j = 0; j < 4; j++) {
-            if (tabel[i][j] == 0) {
-                emptyFieldPointers[counter] = &tabel[i][j];
-                counter++;
-            }
-        }
-    }
-}
-
 
 void moveBoard(struct GAME* game,int direction ) {
-    for (int i = 0; i < 4; i++) {
-        if (i == direction) {
-            add(game);
-            mergeNumInRows(game);
+    if (direction < 4) {
+        saveValueToUndo(game);
+        for (int i = 0; i < 4; i++) {
+            if (i == direction) {
+                add(game);
+                mergeNumInRows(game);
+            }
+            rotateMatrix(game);
         }
-        rotateMatrix(game);
     }
 }
 
-//do naprawy !!!!!!!!!!!!!!!
+
 void spawn(struct GAME* game) {
     int n = 0;
     int* empty[15];
@@ -235,11 +244,13 @@ void spawn(struct GAME* game) {
 
 
 void action(struct GAME* game ,int *state ,int key) {
-    
+    if (key == 5) {
+        undoMove(game);
+    }
     savePastValues(game);
     moveBoard(game,key);
-    
-    if (compareMatrix(game) == false) {
+
+    if (compareMatrix(game) == false) {   
         spawn(game);
     }
     if (compareMatrix(game) == true && gameOver(game) == true) {
@@ -267,6 +278,10 @@ void getKey(ALLEGRO_EVENT event, bool *keyUpCheck, int * keyPressed) {
                 break;
             case ALLEGRO_KEY_W://w
                 *keyPressed = W;
+                *keyUpCheck = false;
+                break;
+            case ALLEGRO_KEY_R://r
+                *keyPressed = R;
                 *keyUpCheck = false;
                 break;
             default:

@@ -16,5 +16,5 @@ ALLEGRO_COLOR setColor(int i, int j, struct GAMESQUARE* board[4][4]);
 void printboard(struct GAMESQUARE *board[4][4]);
 void printChars(ALLEGRO_FONT* font, struct GAME* game);
 void printScore(ALLEGRO_FONT* font, struct GAME* game);
-void areYouWinningSon(struct GAME* game, int* clock, ALLEGRO_BITMAP* graphic);
+void winNotification(struct GAME* game, int* clock, ALLEGRO_BITMAP* graphic);
 #endif // GUI_H_INCLUDED

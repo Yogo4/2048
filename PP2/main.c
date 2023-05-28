@@ -80,7 +80,7 @@ int main(void) {
 				if (event.type == ALLEGRO_EVENT_TIMER) {
 					printMenu(menuFont);
 					printSelected(&menu, menuSeleced);
-					al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 0, ALLEGRO_ALIGN_RIGHT, "move(a,w,s,d)");
+					al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 0, ALLEGRO_ALIGN_RIGHT, "move(w,s)");
 					al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 18, ALLEGRO_ALIGN_RIGHT, "confirm(enter)");
 					al_flip_display();
 				}
@@ -101,7 +101,7 @@ int main(void) {
 				state = PLAYING;
 			}
 			else if (menuState == LEADBOARD) {
-				read_scores(scores);
+				readScores(scores);
 				//render
 				if (event.type == ALLEGRO_EVENT_TIMER) {
 					al_clear_to_color(bgcolor);
@@ -115,7 +115,7 @@ int main(void) {
 				}
 			}
 			else if (menuState == QUITGAME) {
-				save_score(&game);
+				saveScore(&game);
 				return 1;
 			}
 		}
@@ -124,13 +124,12 @@ int main(void) {
 			getKey(event, &keyUpCheck, &keyPressed);
 			printf("\n%d\n", keyPressed);
 			action(&game,&state, keyPressed);
-			printarr(&game);
 			//render
 			if (event.type == ALLEGRO_EVENT_TIMER) {
 				printboard(&game.board);
 				printChars(font, &game);
 				printScore(menuFont, &game);
-				areYouWinningSon(&game, &promptClock, gamewon);
+				winNotification(&game, &promptClock, gamewon);
 				al_draw_text(helpfont,al_map_rgb(255,255,255),835,0,ALLEGRO_ALIGN_RIGHT,"move(a,w,s,d)");
 				al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 18, ALLEGRO_ALIGN_RIGHT, "undo move(r)");
 				al_draw_text(helpfont, al_map_rgb(255, 255, 255), 835, 36, ALLEGRO_ALIGN_RIGHT, "menu(esc)");

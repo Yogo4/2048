@@ -10,14 +10,22 @@
 #include "logic.h"
 #include "menu.h"
 
-//ustawia bazowy stan menu 1 to zaznaczony stan przyjmuje za parametr stucture menu
+/*
+Funkcja set_menu przyjmuje jeden argument: menu, który jest wskaŸnikiem na strukturê MENU. 
+Funkcja ma za zadanie ustawienie odpowiednich wartoœci zmiennych w strukturze MENU w celu okreœlenia aktualnego stanu menu gry.
+*/
 void set_menu(struct MENU* menu) {
 	menu->Playing = 1;
 	menu->Leadboard = 0;
 	menu->QuitGame = 0;
 }
 
-//odpowiada za zmian zaznczonego sanu lda struktury menu przy odpowiedni przycisku(w lub s) w parametrze 
+/*
+Funkcja selectState przyjmuje dwa argumenty: menu, który jest wskaŸnikiem na strukturê MENU, oraz keyPressed, który jest zmienn¹ przechowuj¹c¹ informacjê o naciœniêtym klawiszu. 
+Funkcja ma na celu zmianê aktualnego stanu menu w zale¿noœci od naciœniêtego klawisza.
+selectState jest wywo³ywana w celu obs³ugi zmiany stanu menu w odpowiedzi na naciœniêcie klawiszy. 
+Pozwala to na nawigacjê po menu gry i wybieranie ró¿nych opcji.
+*/
 void selectState(struct MENU* menu,int keyPressed){
 	int tmp;
 	
@@ -35,7 +43,11 @@ void selectState(struct MENU* menu,int keyPressed){
 	}
 }
 
-//inicjalizuje stan zaznaczony w strukturze menu, i zmienia stan w parametrze menuState
+/*
+Funkcja initState przyjmuje dwa argumenty: menu, który jest wskaŸnikiem na strukturê MENU, oraz menuState, który jest wskaŸnikiem na zmienn¹ przechowuj¹c¹ stan menu. 
+Funkcja ma za zadanie ustawiæ odpowiedni stan gry na podstawie wartoœci zmiennych w strukturze MENU.
+Dzia³anie funkcji polega na sprawdzeniu wartoœci zmiennych Playing, Leadboard i QuitGame w strukturze menu i na tej podstawie przypisanie odpowiednich wartoœci do zmiennej *menuState.
+*/
 void initState(struct MENU* menu, int* menuState){
 	if (menu->Playing == 1) {
 		*menuState = RUN_GAME;
@@ -48,7 +60,12 @@ void initState(struct MENU* menu, int* menuState){
 	}
 }
 
-//odpowiada za wypisanie menu za parametr przyjmuje font 
+/*
+Funkcja printMenu przyjmuje jeden argument: font, który jest wskaŸnikiem na czcionkê typu ALLEGRO_FONT. 
+Funkcja ma na celu wyœwietlenie menu gry na ekranie.
+W efekcie, funkcja printMenu rysuje trzy opisy opcji menu na ekranie, rozmieszczone pionowo. Ka¿dy opis jest wyœwietlany w wyznaczonym miejscu przy u¿yciu czcionki font. 
+Jest to wykorzystywane do wizualizacji menu gry i prezentowania dostêpnych opcji dla gracza.
+*/
 void printMenu(ALLEGRO_FONT* font) {
 	int x = 420;
 	int y = 400;
@@ -59,10 +76,12 @@ void printMenu(ALLEGRO_FONT* font) {
 		y += 120;
 
 	}
-
 }
 
-
+/*
+Funkcja printSelected przyjmuje dwa argumenty: menu, który jest wskaŸnikiem na strukturê MENU, oraz font, który jest wskaŸnikiem na czcionkê typu ALLEGRO_FONT. 
+Funkcja ma na celu wyœwietlenie wyró¿nionego wyboru w menu gry na ekranie.
+*/
 void printSelected(struct MENU* menu, ALLEGRO_FONT* font) {	
 		if (menu->Playing == 1) {
 			al_draw_filled_rounded_rectangle(160, 400, 670, 520, 10, 10, al_map_rgb(255,255,255) );
@@ -78,7 +97,13 @@ void printSelected(struct MENU* menu, ALLEGRO_FONT* font) {
 		}
 }
 
-
+/*
+Funkcja printScores przyjmuje dwa argumenty: font, który jest wskaŸnikiem na czcionkê typu ALLEGRO_FONT, oraz scores, który jest tablic¹ liczb ca³kowitych o rozmiarze 10. 
+Funkcja ma na celu wyœwietlenie listy wyników na ekranie.
+printScores rysuje listê wyników na ekranie przy u¿yciu podanej czcionki. 
+Wykorzystuje iteracjê, sprawdzanie warunku i przesuniêcie po³o¿enia tekstu, aby wyœwietliæ wyniki w odpowiednich miejscach na ekranie.
+Ka¿dy wynik jest numerowany i wyœwietlany jako tekst, co umo¿liwia graczy œledzenie najlepszych wyników.
+*/
 void printScores(ALLEGRO_FONT* font, int scores[10]) {
 	int y = 20;
 	char buffor[8];
@@ -91,11 +116,14 @@ void printScores(ALLEGRO_FONT* font, int scores[10]) {
 			y += 78;
 		}
 	}
-
 }
 
-
-void save_score(struct GAME *game) {
+/*
+Funkcja saveScore jest odpowiedzialna za zapisanie wyniku gry do pliku leadboard. Przyjmuje wskaŸnik game na strukturê GAME, która przechowuje aktualny wynik gry.
+saveScore odczytuje tablicê wyników z pliku, porównuje aktualny wynik gry z wynikami w tablicy, aktualizuje tablicê i zapisuje j¹ z powrotem do pliku. 
+Pozwala to na przechowywanie i aktualizowanie najlepszych wyników w grze.
+*/
+void saveScore(struct GAME *game) {
 	FILE* leadboard;
 	char filename[] = "leadboard.txt";
 	errno_t  err = fopen_s(&leadboard, filename, "r+");
@@ -108,11 +136,9 @@ void save_score(struct GAME *game) {
 		exit(1);
 	}
 
-
 	for (i = 0; i < 10; i++) {
 		fscanf_s(leadboard, "%d", &scores[i]);
 	}
-
 
 	for (i = 0; i < 10; i++) {
 		if (game->score > scores[i]) {
@@ -133,7 +159,12 @@ void save_score(struct GAME *game) {
 	fclose(leadboard);
 }
 
-void read_scores(int scores[10]) {
+
+/*
+Funkcja read_scores jest odpowiedzialna za odczytanie wyników z pliku leadboard do tablicy scores.
+Przyjmuje tablicê scores o rozmiarze 10 jako argument, do której zostan¹ zapisane odczytane wyniki.
+*/
+void readScores(int scores[10]) {
 	FILE* leadboard;
 	char filename[] = "leadboard.txt";
 	errno_t  err = fopen_s(&leadboard, filename, "r+");
